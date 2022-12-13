@@ -1,5 +1,6 @@
-// 配置文件
-// 配置项之 所有请求的公共url export 向外暴露 
+// 请求全局配置
+// 所有请求的前缀
+// 模块化的输出
 export const baseURL = "http://152.136.185.210:7878/api/hy66"
-// 超时
+// export const baseURL = "https://www.fastmock.site/mock/995214af813bc47208cf2fcb558907e6/mall/home/multidata"
 export const timeout = 5000

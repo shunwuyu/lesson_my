@@ -1,27 +1,31 @@
-// 基于 network request 方法 
 import request from './network.js'
-// getMultiData 向外暴露 
-export function getMultiData() {
-  return request({
-    url: '/home/multidata'
-  })
-} 
 
-export function getProduct(type, page) {
-  return new Promise((resolve, reject) => {
-    wx.request({
-      url: 'https://www.fastmock.site/mock/3e71828f1ed0a442164c8f3bb947f6ec/weipiao/list',
-      success: (data) => {
-        resolve(data)
-      }
-    })
+export const getMultiData = () => {
+  // 返回一个什么东西， 上面有then 方法
+  // 解决js 异步的良药
+  return request({
+    url: '/home/multidata',
   })
-  // return request({
-  //   // url: '/home/data',
-  //   url: 'https://www.fastmock.site/mock/3e71828f1ed0a442164c8f3bb947f6ec/weipiao/list',
-  //   data: {
-  //     type,
-  //     page
-  //   }
-  // })
+}
+// http://152.136.185.210:7878/api/hy66
+// /home/data?page=${page}&type=${type}
+export const getProduct = (type, page) => {
+  return request({
+    url: '/home/data',
+    data: {
+      type, 
+      page
+    }
+  })
+}
+
+export const getProducts = (type, page) => {
+  console.log(getProducts)
+  return request({
+    url: '/home/data',
+    data: {
+      type,
+      page
+    }
+  })
 }

@@ -1,10 +1,16 @@
 // pages/detail/detail.js
-import {
+import { 
   getDetail,
-  GoodsBaseInfo,
-  ShopInfo,
-  ParamInfo
+  getRecommends
 } from '../../service/detail.js'
+const app = getApp();
+
+import { 
+  GoodsBaseInfo, 
+  GoodsShopInfo,
+  ParamInfo
+} from '../../models/detail.js'
+
 Page({
 
   /**
@@ -15,35 +21,72 @@ Page({
     topImages: [],
     baseInfo: {},
     shopInfo: {},
-    detailInfo: {},
-    paramInfo: {}
+    commentInfo: {},
+    recommends: []
   },
-
+  // 被组件调用
+  onAddCart() {
+    // console.log('111');
+    const obj = {}
+    obj.iid = this.data.iid
+    obj.imageURL = this.data.topImages[0];
+    obj.title = this.data.baseInfo.title;
+    obj.desc = this.data.baseInfo.desc;
+    obj.price = this.data.baseInfo.realPrice;
+    app.addToCart(obj);
+    wx.showToast({
+      title: '加入购物车成功'
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    console.log('onload from detail');
+    // 1. 解构参数
+    const iid = options.iid;
     this.setData({
-      iid: options.iid
+      iid
     })
-    this._getDetailData()
+    // 请求页面数据
+    this._getDetailData();
+    this._getRecommendsData();
+  },
+  _getRecommendsData() {
+    getRecommends()
+      .then(res => {
+       this.setData({
+         recommends: res.data.list
+       })
+      })
   },
   _getDetailData() {
-    getDetail(this.data.iid).then(res => {
-      const data = res.result;
-      const topImages = data.itemInfo.topImages;
-      const baseInfo = new GoodsBaseInfo(data.itemInfo, data.columns, data.shopInfo.services)
-      const shopInfo = new ShopInfo(data.shopInfo);
-      const detailInfo = data.detailInfo;
-      const paramInfo = new ParamInfo(data.itemParams.info, data.itemParams.rule)
-      this.setData({
-        topImages,
-        baseInfo,
-        shopInfo,
-        detailInfo,
-        paramInfo
+    getDetail(this.data.iid)
+      .then(res => {
+        console.log(res);
+        const data = res.result;
+        const topImages = data.itemInfo.topImages;
+        // 建模
+        const baseInfo = new GoodsBaseInfo(data.itemInfo,
+           data.columns, data.shopInfo.services);
+        const shopInfo = new GoodsShopInfo(data.shopInfo);
+        const detailInfo = data.detailInfo;
+        const paramInfo = new ParamInfo(data.itemParams.info, 
+        data.itemParams.rule)
+        let commentInfo = {}
+        if (data.rate && data.rate.cRate > 0) {
+          commentInfo = data.rate.list[0];
+        }
+
+        this.setData({
+          topImages,
+          baseInfo,
+          shopInfo,
+          detailInfo,
+          paramInfo,
+          commentInfo
+        })
       })
-    })
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -70,7 +113,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload() {
-
+    console.log('unload, detail');
   },
 
   /**

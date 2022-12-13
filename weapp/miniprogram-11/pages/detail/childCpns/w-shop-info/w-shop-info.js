@@ -1,10 +1,12 @@
+// pages/detail/childCpns/w-shop-info/w-shop-info.js
 Component({
   /**
    * 组件的属性列表
    */
   properties: {
     shopInfo: {
-      type: Object
+      type: Object,
+      value: {}
     }
   },
 

@@ -95,3 +95,11 @@
 .less {
   color: #5ea732;
 }
+
+/* .better.good {
+  background: #ff5777;
+}
+
+.better.less {
+  background: #5ea732;
+} */

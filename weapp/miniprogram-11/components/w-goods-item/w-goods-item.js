@@ -22,11 +22,10 @@ Component({
    */
   methods: {
     itemClick(e) {
-      // 1.获取iid
+        console.log(this.data)
       const iid = this.data.goodsitem.iid;
-      // 2.跳转到对应的路径
       wx.navigateTo({
-        url: '/pages/detail/detail?iid=' + iid,
+        url: `/pages/detail/detail?iid=${iid}`
       })
     }
   }

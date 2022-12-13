@@ -25,6 +25,11 @@ Component({
    * 组件的方法列表
    */
   methods: {
+    setCurrentIndex(index) {
+      this.setData({
+        currentIndex:index
+      })
+    },
     itemClick(e) {
       // console.log('--------------')
       this.setData({
@@ -35,12 +40,6 @@ Component({
       const data = {index: this.data.currentIndex}
       // 向外报告 triggerEvent  bind:tabclick
       this.triggerEvent("tabclick", data, {})
-    },
-    setCurrentIndex(index) {
-      console.log(index)
-      this.setData({
-        currentIndex: index
-      })
     }
   }
 })

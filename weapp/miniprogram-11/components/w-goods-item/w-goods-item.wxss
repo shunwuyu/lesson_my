@@ -1,3 +1,4 @@
+/* components/w-goods-item/w-goods-item.wxss */
 .goods-item {
   /* width: 200rpx; */
   text-align: center;
@@ -40,3 +41,18 @@
   position: relative;
   top:4rpx;
 }
+
+.cfav {
+  /* padding-left: 10rpx; */
+  position: relative;
+}
+
+/* .cfav::before {
+  content: '';
+  position: absolute;
+  left: -15px;
+  top: -1px;
+  width: 14px;
+  height: 14px;
+  background: url("/assets/images/common/favor.png") 0 0/14px 14px;
+} */

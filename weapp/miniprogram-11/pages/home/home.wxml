@@ -8,6 +8,7 @@
       提升组件的定制能力 抽象
     -->
     <w-tab-control class='tab-control-temp' 
+                
                  titles="{{titles}}" 
                  bind:tabclick="tabClick"
     />
@@ -17,7 +18,7 @@
    -->
   <scroll-view class='content' 
     scroll-y 
-    style="height:100vh;"
+    style="height: 100vh;"
     bindscrolltolower="loadMore"
     scroll-with-animation="true"
     scroll-top="{{topPosition}}"
@@ -25,9 +26,18 @@
     <!-- banners swiper  广告位  专为业务而来-->
     <w-swiper images="{{banners}}"/>
     <w-recommend recommends="{{recommends}}"/>
-    <w-feature/>
-    <w-tab-control class='tab-control' titles="{{titles}}" bind:tabclick="tabClick"/>
+    <!-- 本周流行 -->
+    <w-feature /> 
+   <!-- tab -->
+    <w-tab-control class="tab-control" titles="{{titles}}"
+      bind:tabclick="tabClick"
+    />
+
     <w-goods goodslist="{{goods[currentType].list}}"/>
-    <w-back-top bindtap="onBackTop" wx:if="{{showBackTop}}"/>
+    <!-- 商品列表 -->
+    <!-- <w-goods /> -->
+    <!-- 返回到顶部 -->
+    <w-back-top bindtap="onBackTop" wx:if="{{showBackTop}}" ></w-back-top>
+    
   </scroll-view>
 </view>

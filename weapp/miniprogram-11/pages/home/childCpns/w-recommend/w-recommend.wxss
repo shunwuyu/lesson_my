@@ -1,4 +1,3 @@
-/* components/w-recommend/w-recommend.wxss */
 .recommend {
   display: flex;
   margin-top: 40rpx;

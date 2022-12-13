@@ -1,10 +1,12 @@
+// pages/detail/w-base-info/w-base-info.js
 Component({
   /**
    * 组件的属性列表
    */
   properties: {
     baseInfo: {
-      type: Object
+      type: Object,
+      value: {}
     }
   },
 
