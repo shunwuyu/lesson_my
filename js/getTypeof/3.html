@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Symbol</title>
+    <meta name="description" content="标记 独一无二的 身份证">
+</head>
+<body>
+<script>
+// 
+// const s = Symbol(); // 函数来申明 BigInt() 一样 
+// console.log(typeof s); // 不太靠谱   简单数据类型
+// const foo = Symbol('foo');  // 标签   
+// const bar = Symbol('foo');
+// console.log(foo === bar);
+
+// const s1 = Symbol.for('foo'); // 查找？没找到的化， 生成一个   
+// const s2 = Symbol.for('foo');
+// console.log(s1 === s2);
+
+// const foo = Symbol("foo");  // 申明了symbol 独一无二的
+// const s1 = Symbol.for("foo");  // 查找了Symbol 
+// const s2 = Symbol.for("foo");
+// const s3 = foo;
+// console.log(s1, foo, s1== s2, s1 == foo, s3, s3 == foo);
+
+// 应用场景
+const name = Symbol('name'); // name 独一无二？
+
+const obj = {
+    age: 17,
+    name: '龙班班',
+    [name]: '蔡总', 
+    [Symbol()]: '唯一'
+}
+console.log(obj);
+
+
+const speak = Symbol('speak');
+class Person{
+    // 公共方法 public 
+    say() {
+        console.log('hello world')
+    }
+    // private  私有方法
+    [speak]() {
+
+    }
+}
+const banbanLong = new Person();
+banbanLong.say();
+</script>
+</body>
+</html>
