@@ -16,25 +16,89 @@
             </div>
             <router-link class="login" to="/login">登录</router-link>
         </header>
-        <!-- <SubHeader /> -->
+        <nav-bar />
+        <swiper :list="state.swiperList"/>  
+        <div class="category-list">
+            <div v-for="item in state.categoryList" :key="item.categoryId">
+                <img :src="item.imgUrl">
+                <span>{{item.name}}</span>
+            </div>
+        </div>
     </div>
 </template>
 
 <script setup>
 import { onMounted, reactive } from 'vue'
 import { getHomeData } from '../service/home' 
+import { showLoadingToast, closeToast } from 'vant'
+import NavBar from '~/NavBar.vue'
+import swiper from '~/Swiper.vue'
+
 // import SubHeader from '../components/SubHeader.vue'
 // es8  异步的高级能力 async await 
 // 挂载后再发送api 请求， 提升性能， 不会去争抢挂载显示
-// data 
+// data  响应式的数据  
+// 数据的值 对应当前的组件状态
+// 值会改变 对应新的状态
+// 数据和组件的状态是一一对应关系的 
 const state = reactive({
-    swiperList: []
+    swiperList: [],
+    loading: true,
+    categoryList: [
+    {
+      name: '新蜂超市',
+      imgUrl: 'https://s.yezgea02.com/1604041127880/%E8%B6%85%E5%B8%82%402x.png',
+      categoryId: 100001
+    }, {
+      name: '新蜂服饰',
+      imgUrl: 'https://s.yezgea02.com/1604041127880/%E6%9C%8D%E9%A5%B0%402x.png',
+      categoryId: 100003
+    }, {
+      name: '全球购',
+      imgUrl: 'https://s.yezgea02.com/1604041127880/%E5%85%A8%E7%90%83%E8%B4%AD%402x.png',
+      categoryId: 100002
+    }, {
+      name: '新蜂生鲜',
+      imgUrl: 'https://s.yezgea02.com/1604041127880/%E7%94%9F%E9%B2%9C%402x.png',
+      categoryId: 100004
+    }, {
+      name: '新蜂到家',
+      imgUrl: 'https://s.yezgea02.com/1604041127880/%E5%88%B0%E5%AE%B6%402x.png',
+      categoryId: 100005
+    }, {
+      name: '充值缴费',
+      imgUrl: 'https://s.yezgea02.com/1604041127880/%E5%85%85%E5%80%BC%402x.png',
+      categoryId: 100006
+    }, {
+      name: '9.9元拼',
+      imgUrl: 'https://s.yezgea02.com/1604041127880/9.9%402x.png',
+      categoryId: 100007
+    }, {
+      name: '领劵',
+      imgUrl: 'https://s.yezgea02.com/1604041127880/%E9%A2%86%E5%88%B8%402x.png',
+      categoryId: 100008
+    }, {
+      name: '省钱',
+      imgUrl: 'https://s.yezgea02.com/1604041127880/%E7%9C%81%E9%92%B1%402x.png',
+      categoryId: 100009
+    }, {
+      name: '全部',
+      imgUrl: 'https://s.yezgea02.com/1604041127880/%E5%85%A8%E9%83%A8%402x.png',
+      categoryId: 100010
+    }
+  ],
 })
 
 onMounted(async () => { // 使用了异步同步化的高级技巧
+    showLoadingToast({
+        message: '加载中...',
+        forbidClick: true
+    })
     const { data } = await getHomeData() //  await  promise  api serverice
     console.log(data)
     state.swiperList = data.data.carousels
+    state.loading = false
+    closeToast()
     // console.log(state.swiperList)
 })
 </script>
@@ -83,4 +147,19 @@ onMounted(async () => { // 使用了异步同步化的高级技巧
     .login
         color $primary
         line-height 1.38667rem
+
+.category-list
+    display flex
+    flex-shrink 0
+    flex-wrap wrap
+    width 100%
+    padding-bottom .34667rem
+    div
+        display flex
+        flex-direction column
+        width 20%
+        text-align center
+        img
+            wh(.96rem, .96rem)
+            margin .346667rem auto .213333rem auto
 </style>
