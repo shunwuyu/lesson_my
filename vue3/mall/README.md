@@ -1,6 +1,22 @@
 # vue3 写商城 
 - 简历需要 
 
+- vue3 语法
+    - 过滤器 filters  换了表现形式
+        computed data -> 计算 
+        格式转化 进制转换 汇率 语言
+        入口可以配置多个过滤器
+        app.config.globalProperties.$filters = {
+            prefix(url) {
+                if ()......
+            }
+        } 
+
+- 设计模式
+    DRY  Dont repeat yourself 
+    代码在复制重复的时候  停下来  
+    组件 
+
 - 工程化 vite 
     前端工程化  运行在服务器端 node 
     .vue   style lang="stylus"  css 工程 stylus | less
@@ -105,4 +121,19 @@
             Mobile First  80% 
             PC  工作 管理  后台 
 
+- axios 
+    - 接口请求里的顺丰
+        更专业 
+        接口返回的数据， 再包一层  更好及更标准的使用， 更丰富的请求信息 
+        http 了解更多 
+        axios 把接口返回的数据放在data 中
+    - 拦截器  interceptors
+        axios request/response 
+        return res.data 
 
+- 骨架屏方案 用户体验优化
+    skeleton  vant 提供了这个组件
+    <van-skeleton :row="3" :loading="state.loading" >
+        template 显示出来
+    </van-skeleton>
+    3251  3,251  

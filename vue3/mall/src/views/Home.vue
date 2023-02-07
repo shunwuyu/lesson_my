@@ -18,12 +18,48 @@
         </header>
         <nav-bar />
         <swiper :list="state.swiperList"/>  
-        <div class="category-list">
+        <section class="category-list">
             <div v-for="item in state.categoryList" :key="item.categoryId">
                 <img :src="item.imgUrl">
                 <span>{{item.name}}</span>
             </div>
-        </div>
+        </section>
+        <section class="goods">
+            <header class="goods-header">新品上线</header>
+            <van-skeleton title :row="3" :loading="state.loading">
+                <!-- slot 插槽 -->
+                <div class="goods-box">
+                    <goods-item
+                        v-for="item in state.newGoodses" 
+                        :key="item.goodsId"
+                        :goods="item"/>
+                </div>
+            </van-skeleton>
+        </section>
+        <section class="goods">
+            <header class="goods-header">热销商品</header>
+            <van-skeleton title :row="3" :loading="state.loading">
+                <!-- slot 插槽 -->
+                <div class="goods-box">
+                    <goods-item
+                        v-for="item in state.hotGoodses" 
+                        :key="item.goodsId"
+                        :goods="item"/>
+                </div>
+            </van-skeleton>
+        </section>
+        <section class="goods">
+            <header class="goods-header">推荐商品</header>
+            <van-skeleton title :row="3" :loading="state.loading">
+                <!-- slot 插槽 -->
+                <div class="goods-box">
+                    <goods-item
+                        v-for="item in state.recommendGoodses" 
+                        :key="item.goodsId"
+                        :goods="item"/>
+                </div>
+            </van-skeleton>
+        </section>
     </div>
 </template>
 
@@ -33,6 +69,7 @@ import { getHomeData } from '../service/home'
 import { showLoadingToast, closeToast } from 'vant'
 import NavBar from '~/NavBar.vue'
 import swiper from '~/Swiper.vue'
+import GoodsItem from '~/GoodsItem.vue'
 
 // import SubHeader from '../components/SubHeader.vue'
 // es8  异步的高级能力 async await 
@@ -43,6 +80,9 @@ import swiper from '~/Swiper.vue'
 // 数据和组件的状态是一一对应关系的 
 const state = reactive({
     swiperList: [],
+    newGoodses: [],
+    hotGoodses: [],
+    recommendGoodses:[],
     loading: true,
     categoryList: [
     {
@@ -94,9 +134,14 @@ onMounted(async () => { // 使用了异步同步化的高级技巧
         message: '加载中...',
         forbidClick: true
     })
+    // 后台接口数据
     const { data } = await getHomeData() //  await  promise  api serverice
-    console.log(data)
-    state.swiperList = data.data.carousels
+    console.log(data, '////')
+    // console.log(data)
+    state.swiperList = data.carousels
+    state.newGoodses = data.newGoodses
+    state.hotGoodses = data.hotGoodses
+    state.recommendGoodses = data.recommendGoodses
     state.loading = false
     closeToast()
     // console.log(state.swiperList)
@@ -162,4 +207,16 @@ onMounted(async () => { // 使用了异步同步化的高级技巧
         img
             wh(.96rem, .96rem)
             margin .346667rem auto .213333rem auto
-</style>
+.goods
+    .goods-header
+        background #f9f9f9
+        height 1.3333rem
+        line-height 1.3333rem
+        text-align center
+        color $primary
+        font-size .426667rem
+        font-weight 500
+    .goods-box
+        fj(flex-start)
+        flex-wrap wrap
+</style>        
