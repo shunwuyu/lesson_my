@@ -3,7 +3,8 @@ import App from './App.vue'
 import { // 按需加载vant 组件
     Swipe,
     SwipeItem,
-    Skeleton
+    Skeleton,
+    Lazyload
 } from 'vant'
 import 'vant/lib/index.css'
 import './assets/main.css'  // reset 
@@ -22,6 +23,7 @@ app
     .use(Swipe)  // 
     .use(SwipeItem)
     .use(Skeleton)
+    .use(Lazyload)
     // .use()
     .use(router) // 当我们在做SPA 路由接管一切  pages -> 组件 
 

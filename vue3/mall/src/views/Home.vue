@@ -32,6 +32,7 @@
                     <goods-item
                         v-for="item in state.newGoodses" 
                         :key="item.goodsId"
+                        @click="gotoDetail(item.goodsId)"
                         :goods="item"/>
                 </div>
             </van-skeleton>
@@ -44,6 +45,7 @@
                     <goods-item
                         v-for="item in state.hotGoodses" 
                         :key="item.goodsId"
+                        @click="gotoDetail(item.goodsId)"
                         :goods="item"/>
                 </div>
             </van-skeleton>
@@ -56,7 +58,9 @@
                     <goods-item
                         v-for="item in state.recommendGoodses" 
                         :key="item.goodsId"
-                        :goods="item"/>
+                        :goods="item"
+                        @click="gotoDetail(item.goodsId)"
+                        />
                 </div>
             </van-skeleton>
         </section>
@@ -65,12 +69,14 @@
 
 <script setup>
 import { onMounted, reactive } from 'vue'
+import { useRouter } from 'vue-router'
 import { getHomeData } from '../service/home' 
 import { showLoadingToast, closeToast } from 'vant'
 import NavBar from '~/NavBar.vue'
 import swiper from '~/Swiper.vue'
 import GoodsItem from '~/GoodsItem.vue'
 
+const router = useRouter() // 把全局的路由对象给我们
 // import SubHeader from '../components/SubHeader.vue'
 // es8  异步的高级能力 async await 
 // 挂载后再发送api 请求， 提升性能， 不会去争抢挂载显示
@@ -129,6 +135,15 @@ const state = reactive({
   ],
 })
 
+const gotoDetail = (id) => {
+    // /detail/:id
+    // console.log(id, 'gotoDetail');
+    console.log(router, '///////');
+    router.push({
+        path: `/detail/${id}`
+    })
+}
+
 onMounted(async () => { // 使用了异步同步化的高级技巧
     showLoadingToast({
         message: '加载中...',
@@ -151,9 +166,11 @@ onMounted(async () => { // 使用了异步同步化的高级技巧
 <style lang="stylus" scoped>
 @import '../common/style/mixin'
 // 可以一次性设置widht height 的mixin 混合
-// stylus 提供的tab 缩进 css 提供了模块化的能力？  
+// stylus 提供的tab 缩进 css 提供了模块化的能力？ 
+#home-wrapper
+    padding-bottom 2rem 
 .home-header
-    position absolute
+    position fixed
     top 0
     left 0    
     line-height 1.33333rem
