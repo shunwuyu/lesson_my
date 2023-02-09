@@ -52,7 +52,15 @@ const router = createRouter({
                 index: 3
             },
             component: () => import('@/views/Detail.vue')
-        }
+        }, 
+        {
+            path: '/product-list',
+            name: 'product-list',
+            meta:{
+                index: 2
+            },
+            component: () => import('@/views/ProductList.vue')
+        },
     ]
 })
 
