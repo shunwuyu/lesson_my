@@ -28,7 +28,7 @@ const state = reactive({
   <!-- <transition>
     <router-view class="router-view"/>
   </transition> -->
-  <router-view class="router-view" v-slot="{Component}">
+  <router-view v-slot="{Component}">
     <transition :name="state.transitionName">
       <component :is="Component" />
     </transition>
@@ -36,7 +36,7 @@ const state = reactive({
 </template>
 
 <style>
-.router-view {
+/* .router-view {
   position: absolute;
   width: 100%;
   height: auto;
@@ -44,7 +44,7 @@ const state = reactive({
   left: 0;
   bottom: 0;
   -webkit-overflow-scrolling:touch;
-}
+} */
 
 .slide-left-enter-active, 
 .slide-left-leave-active,

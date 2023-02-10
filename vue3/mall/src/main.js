@@ -7,7 +7,10 @@ import { // 按需加载vant 组件
     Lazyload,
     ActionBar,
     ActionBarIcon,
-    ActionBarButton
+    ActionBarButton,
+    Form,
+    Field,
+    Button
 } from 'vant'
 import 'vant/lib/index.css'
 import './assets/main.css'  // reset 
@@ -30,6 +33,9 @@ app
     .use(ActionBar)
     .use(ActionBarIcon)
     .use(ActionBarButton)
+    .use(Form)
+    .use(Field)
+    .use(Button)
     // .use()
     .use(router) // 当我们在做SPA 路由接管一切  pages -> 组件 
 
